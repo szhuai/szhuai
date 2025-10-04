@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人介绍 - 我的主页</title>
+    <!-- 引入Font Awesome图标库（用于社交图标） -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        /* 容器样式 */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        /* 头部样式 */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid #007bff;
+        }
+        h1 {
+            font-size: 28px;
+            color: #222;
+            margin-bottom: 10px;
+        }
+        .title {
+            color: #007bff;
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        /* 内容模块样式 */
+        .section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .section h2 {
+            font-size: 22px;
+            color: #222;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        /* 信息列表样式 */
+        .info-list {
+            list-style: none;
+        }
+        .info-list li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .info-list i {
+            color: #007bff;
+            font-size: 18px;
+            width: 25px;
+            margin-right: 15px;
+            text-align: center;
+        }
+        /* 社交图标样式 */
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .social-links a {
+            color: white;
+            background-color: #007bff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .social-links a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部：头像与基本信息 -->
+        <header>
+            <img src="你的头像地址.jpg" alt="个人头像" class="avatar">
+            <h1>张三</h1>
+            <p class="title">前端开发工程师 | 技术博客作者</p>
+            <p>热爱技术分享，专注于前端工程化与用户体验优化</p>
+            <!-- 社交图标 -->
+            <div class="social-links">
+                <a href="你的博客地址" target="_blank" title="我的博客"><<i class="fa-solid fa-blog"></</i></a>
+                <a href="你的GitHub地址" target="_blank" title="GitHub"><<i class="fa-brands fa-github"></</i></a>
+                <a href="mailto:你的邮箱" title="邮箱"><<i class="fa-solid fa-envelope"></</i></a>
+            </div>
+        </header>
+
+        <!-- 关于我模块 -->
+        <section class="section">
+            <h2><<i class="fa-solid fa-user" style="color: #007bff; margin-right: 10px;"></</i>关于我</h2>
+            <p>从事前端开发5年，熟悉HTML/CSS/JavaScript，精通Vue、React等框架，具备从需求分析到项目落地的全流程经验。</p>
+            <p>闲暇时喜欢撰写技术博客，分享前端进阶技巧与踩坑经验，累计发表文章80+篇，全网阅读量超50万。</p>
+        </section>
+
+        <!-- 核心技能模块 -->
+        <section class="section">
+            <h2><<i class="fa-solid fa-code" style="color: #007bff; margin-right: 10px;"></</i>核心技能</h2>
+            <ul class="info-list">
+                <li><<i class="fa-solid fa-check"></</i>前端框架：Vue 3、React 18、Next.js</li>
+                <li><<i class="fa-solid fa-check"></</i>样式方案：Tailwind CSS、Sass、CSS Modules</li>
+                <li><<i class="fa-solid fa-check"></</i>工程化：Webpack、Vite、Git Flow、CI/CD</li>
+                <li><<i class="fa-solid fa-check"></</i>其他：TypeScript、小程序开发、跨端适配</li>
+            </u
