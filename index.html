@@ -130,7 +130,7 @@
 	<div class="container">
 		<div class="copy">
 			© <span id="current-year">
-			<script>document.getElementById("current-year").innerHTML=(new Date).getFullYear()</script>
+			<script>document。getElementById("current-year").innerHTML=(new Date).getFullYear()</script>
 			</span>&nbsp;无忧导航<br>
 			一个极简的网址导航<br>
 			<a href="http://www.beian.miit.gov.cn/" target="_blank"></a>
@@ -165,70 +165,94 @@
 				</ul>
 			</div>
 			<!-- 随机一言结束-->		
-<footer>		
-		  <span class="astro-OY55P3EK"><span class="astro-OY55P3EK">本站已运行 <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>现在时间：<span id="show_time"></span>   
-		  <script>
-		  var now = new Date();
-		  function createtime() {
-			var grt= new Date("08/08/2024 00:00:00");
-			now.setTime(now.getTime()+250);
-			days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
-			hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
-			if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
-			mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
-			seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
-			snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
-			document.getElementById("timeDate").innerHTML = dnum+" 天 ";
-			document.getElementById("times").innerHTML = hnum + " 时 " ;
-		  }
-		  setInterval("createtime()",250);
-		  </script>
-		  <!-- 时间 -->
-			<span id="RGB"></span> 
-		  <meta charset="utf-8">   
-	  <div id="main">  
-	  <div id="show_time0" style="">
-	  <script>
-	  //显示时间
-	  //setInterval("show_time0.innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);
-	  </script>
-	  </div>
-	  <script>  
-	  //定义
-	  setInterval("fun(show_time)",1);
-	  function fun(timeID){ 
-	  var date = new Date();  //创建对象  
-	  var y = date.getFullYear();     //获取年份  
-	  var m =date.getMonth()+1;   //获取月份  返回0-11  
-	  var d = date.getDate(); // 获取日  
-	  var w = date.getDay();   //获取星期几  返回0-6   (0=星期天) 
-	  var ww = ' 星期'+'日一二三四五六'.charAt(new Date().getDay()) ;//星期几
-	  var h = date.getHours();  //时
-	  var minute = date.getMinutes()  //分
-	  var s = date.getSeconds(); //秒
-	  var sss = date.getMilliseconds() ; //毫秒
-	  if(m<10){
-	  m = "0"+m;
-	  }
-	  if(d<10){
-	  d = "0"+d;
-	  }
-	  if(h<10){
-	  h = "0"+h;
-	  }
-	  
-	  if(minute<10){
-	  minute = "0"+minute;
-	  }
-	  
-	  if(s<10){
-	  s = "0"+s;
-	  }
-	  
-	  if(sss<10){
-	  sss = "00"+sss;
-	  }else if(sss<100){
-	  sss = "0"+sss;
-	  }
-	  
-	            
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>运行时间统计</title>
+    <style>
+        。runtime-container {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: 20px auto;
+            text-align: center;
+        }
+        
+        。runtime-title {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        。runtime-days {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1890ff;
+            margin-bottom: 10px;
+        }
+        
+        。current-time {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        。timezone {
+            font-size: 12px;
+            color: #999;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="runtime-container">
+        <div class="runtime-title">本站已稳定运行</div>
+        <div class="runtime-days" id="runtimeDays">100天</div>
+        <div class="current-time" id="currentTime"></div>
+        <div class="timezone">北京时间 (UTC+8)</div>
+    </div>
+
+    <script>
+        // 计算运行天数（示例：100天）
+        const startDate = new Date();
+        startDate.setDate(startDate.getDate() - 100); // 设置为100天前
+        
+        function updateRuntime() {
+            const now = new Date();
+            
+            // 计算运行天数
+            const diffTime = Math.abs(now - startDate);
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+            // 格式化当前时间
+            const timeStr = now.toLocaleTimeString('zh-CN', {
+                timeZone: 'Asia/Shanghai',
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            const dateStr = now.toLocaleDateString('zh-CN', {
+                timeZone: 'Asia/Shanghai',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                weekday: 'long'
+            });
+            
+            document.getElementById('runtimeDays').textContent = `${diffDays}天`;
+            document.getElementById('currentTime').textContent = `${dateStr} ${timeStr}`;
+        }
+        
+        // 初始调用
+        updateRuntime();
+        
+        // 每秒更新一次
+        setInterval(updateRuntime, 1000);
+    </script>
+</body>
+</html>
