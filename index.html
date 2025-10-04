@@ -165,6 +165,158 @@
 				</ul>
 			</div>
 			<!-- 随机一言结束-->		
+<footer>		
+		  <span class="astro-OY55P3EK"><span class="astro-OY55P3EK">本站已运行 <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>现在时间：<span id="show_time"></span>   
+		  <script>
+		  var now = new Date();
+		  function createtime() {
+			var grt= new Date("08/08/2024 00:00:00");
+			now.setTime(now.getTime()+250);
+			days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
+			hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
+			if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
+			mnum = Math.floor(minutes); if(String(mnum).length ==1 ){mnum = "0" + mnum;}
+			seconds = (now - grt ) / 1000 - (24 * 60 * 60 * dnum) - (60 * 60 * hnum) - (60 * mnum);
+			snum = Math.round(seconds); if(String(snum).length ==1 ){snum = "0" + snum;}
+			document.getElementById("timeDate").innerHTML = dnum+" 天 ";
+			document.getElementById("times").innerHTML = hnum + " 时 " ;
+		  }
+		  setInterval("createtime()",250);
+		  </script>
+		  <!-- 时间 -->
+			<span id="RGB"></span> 
+		  <meta charset="utf-8">   
+	  <div id="main">  
+	  <div id="show_time0" style="">
+	  <script>
+	  //显示时间
+	  //setInterval("show_time0.innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);
+	  </script>
+	  </div>
+	  <script>  
+	  //定义
+	  setInterval("fun(show_time)",1);
+	  function fun(timeID){ 
+	  var date = new Date();  //创建对象  
+	  var y = date.getFullYear();     //获取年份  
+	  var m =date.getMonth()+1;   //获取月份  返回0-11  
+	  var d = date.getDate(); // 获取日  
+	  var w = date.getDay();   //获取星期几  返回0-6   (0=星期天) 
+	  var ww = ' 星期'+'日一二三四五六'.charAt(new Date().getDay()) ;//星期几
+	  var h = date.getHours();  //时
+	  var minute = date.getMinutes()  //分
+	  var s = date.getSeconds(); //秒
+	  var sss = date.getMilliseconds() ; //毫秒
+	  if(m<10){
+	  m = "0"+m;
+	  }
+	  if(d<10){
+	  d = "0"+d;
+	  }
+	  if(h<10){
+	  h = "0"+h;
+	  }
+	  
+	  if(minute<10){
+	  minute = "0"+minute;
+	  }
+	  
+	  if(s<10){
+	  s = "0"+s;
+	  }
+	  
+	  if(sss<10){
+	  sss = "00"+sss;
+	  }else if(sss<100){
+	  sss = "0"+sss;
+	  }
+	  
+	  document.getElementById(timeID.id).innerHTML =  y+"-"+m+"-"+d+"   "+h+":"+minute+"     "+ww;
+	  //document.write(y+"-"+m+"-"+d+"   "+h+":"+minute+":"+s);  
+	  }
+	  </script>
+	</footer>
+	<div class="tc">
+		<div onclick="" class="tc-main">
+			< img class="tc-img" src="" alt="" srcset="">
+		</div>
+		<script>
+			// 使用 fetch API 请求指定的 URL
+			fetch('https://www.wudada.online/Api/ScD')
+				.then(response => response.json())
+				.then(data => {
+					// 检查data是否为null
+					if (data === null) {
+						// 如果data为null，显示默认错误消息
+						const contentDiv = document.querySelector('.content');
+						const p = document.createElement('p');
+						p.textContent = '请求失败，没有返回有效信息';
+						contentDiv.appendChild(p);
+					} else {
+						// 如果data不是null，检查code字段
+						if (data.code === '200') {
+							// 如果code是200，显示content字段的信息
+							const contentDiv = document.querySelector('.content');
+							data.data.content.forEach(item => {
+								const p = document.createElement('p');
+								p.textContent = item.content;
+								contentDiv.appendChild(p);
+							});
+						} else {
+							// 如果code不是200，显示msg字段的信息
+							const contentDiv = document.querySelector('.content');
+							const p = document.createElement('p');
+							p.textContent = data.msg || '请求失败，没有返回有效信息';
+							contentDiv.appendChild(p);
+						}
+					}
+				})
+				.catch(error => {
+					console.error('请求出错:', error);
+				});
+		</script>
+
+<script>
+    // 当文档加载完毕时执行
+    document.addEventListener('DOMContentLoaded', function() {
+        // 获取摸鱼日历API的URL
+        var apiURL = 'https://api.vvhan.com/api/moyu?type=json';
+
+        // 使用fetch API请求摸鱼日历API
+        fetch(apiURL)
+            。then(function(response) {
+                // 确保响应的状态是OK的
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                // 解析JSON响应
+                return response.json();
+            })
+            。then(function(data) {
+                // 假设API返回的图片URL在data.url中
+                // 更新图片元素的src属性并显示图片
+                var moyuImage = document.getElementById('moyuImage');
+                moyuImage.src = data.url;
+            })
+            。catch(function(error) {
+                // 在控制台打印错误信息
+                console.error('Error fetching moyu calendar:', error);
+                // 在页面上显示错误信息
+                var moyuImage = document.getElementById('moyuImage');
+                moyuImage.alt = '获取失败，请稍后再试。';
+            });
+    });
+</script>
+<script>
+	function updateClock() {
+	  const now = new Date();
+	  const year = now.getFullYear();
+	  const month = (now.getMonth() + 1).toString().padStart(2, '0');
+	  const day = now.getDate().toString().padStart(2, '0');
+	  const hours = now.getHours().toString().padStart(2, '0');
+	  const minutes = now.getMinutes().toString().padStart(2, '0');
+	  document.getElementById('clock').textContent = `		
+
 
 
 
