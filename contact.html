@@ -7,7 +7,7 @@
 <meta content="一个极简的网址导航，聚合了多种搜索引擎，收录了各种常用网站。分类合理，内容齐全。处处细微，一切都是理所当然。" name="description">
 <meta content="简单导航,导航,网址导航,导航网站,常用网站,常用网址,大学生导航,程序员导航,设计导航,学习导航" name="keywords">
 <link href="static/css/style.css"rel=stylesheet>
-<script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-69454720-6','auto');ga('send','pageview');</script>
+<script>window。ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-69454720-6','auto');ga('send','pageview');</script>
 <script async src='static/js/analytics.js'></script>
 <body style="background:#fff">
 <nav id="site-nav">
@@ -40,6 +40,178 @@
 	</div>
 
 收集很多网站
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圈小猫游戏</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        #gameContainer {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        #gameCanvas {
+            border: 2px solid #333;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+        
+        #status {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+            min-height: 30px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px 5px 0 5px;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        .win { color: #4CAF50; font-weight: bold; }
+        .lose { color: #f44336; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>圈小猫游戏</h1>
+    <div id="gameContainer">
+        <canvas id="gameCanvas" width="400" height="400"></canvas>
+        <div id="status">点击空白格子放置障碍物，围住小猫！</div>
+        <button onclick="resetGame()">重新开始</button>
+    </div>
+
+    <script>
+        // 获取画布和上下文
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const status = document.getElementById('status');
+        
+        // 游戏状态
+        let gridSize = 11;
+        let cellSize = canvas.width / gridSize;
+        let catPosition = { x: 5, y: 5 }; // 中心位置
+        let blockedCells = [];
+        let gameActive = true;
+        
+        // 初始化游戏
+        function initGame() {
+            // 重置状态
+            catPosition = { x: 5, y: 5 };
+            blockedCells = [];
+            gameActive = true;
+            
+            // 添加一些初始障碍物
+            const initialBlocks = [
+                {x: 3, y: 3}, {x: 7, y: 3}, {x: 3, y: 7}, {x: 7, y: 7},
+                {x: 2, y: 5}, {x: 8, y: 5}, {x: 5, y: 2}, {x: 5, y: 8}
+            ];
+            
+            blockedCells = initialBlocks.filter(block => 
+                !(block.x === catPosition.x && block.y === catPosition.y)
+            );
+            
+            drawGame();
+        }
+        
+        // 绘制游戏
+        function drawGame() {
+            // 清空画布
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // 绘制网格
+            ctx.strokeStyle = '#ddd';
+            ctx.lineWidth = 1;
+            
+            for (let i = 0; i <= gridSize; i++) {
+                ctx.beginPath();
+                ctx.moveTo(i * cellSize, 0);
+                ctx.lineTo(i * cellSize, canvas.height);
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.moveTo(0, i * cellSize);
+                ctx.lineTo(canvas.width, i * cellSize);
+                ctx.stroke();
+            }
+            
+            // 绘制障碍物
+            ctx.fillStyle = '#666';
+            blockedCells.forEach(cell => {
+                ctx.fillRect(cell.x * cellSize + 2, cell.y * cellSize + 2, 
+                           cellSize - 4, cellSize - 4);
+            });
+            
+            // 绘制小猫
+            if (gameActive) {
+                drawCat(catPosition。x， catPosition。y);
+            }
+        }
+        
+        // 绘制小猫
+        function drawCat(x， y) {
+            const centerX = x * cellSize + cellSize / 2;
+            const centerY = y * cellSize + cellSize / 2;
+            const radius = cellSize / 3;
+            
+            // 猫的身体
+            ctx.fillStyle = '#FF6B6B';
+            ctx.beginPath();
+            ctx.arc(centerX， centerY， radius， 0， Math。PI * 2);
+            ctx.fill();
+            
+            // 猫的眼睛
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(centerX - 5, centerY - 3, 2, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(centerX + 5， centerY - 3， 2， 0， Math。PI * 2);
+            ctx.fill();
+            
+            // 猫的瞳孔
+            ctx.fillStyle = 'black';
+            ctx.beginPath();
+            ctx.arc(centerX - 5, centerY - 3, 1, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(centerX + 5， centerY - 3， 1， 0, Math。PI * 2);
+            ctx.fill();
+        }
+        
+        // 检查位置是否有效
+        function isV
 © 版权归“万花筒 · jsthon”所有
 <footer>		
 		  <span class="astro-OY55P3EK"><span class="astro-OY55P3EK">本站已运行 <span id="timeDate">载入天数...</span><span id="times">载入时分秒...</span>现在时间：<span id="show_time"></span>   
@@ -47,7 +219,7 @@
 		  var now = new Date();
 		  function createtime() {
 			var grt= new Date("08/08/2024 00:00:00");
-			now.setTime(now.getTime()+250);
+			现在.setTime(now.getTime()+250);
 			days = (now - grt ) / 1000 / 60 / 60 / 24; dnum = Math.floor(days);
 			hours = (now - grt ) / 1000 / 60 / 60 - (24 * dnum); hnum = Math.floor(hours);
 			if(String(hnum).length ==1 ){hnum = "0" + hnum;} minutes = (now - grt ) / 1000 /60 - (24 * 60 * dnum) - (60 * hnum);
@@ -213,3 +385,4 @@
 </div>
 <script src="jquery-migrate-1.2.1.min.js"></script>
 <script src="static/js/index.js?!"></script>
+
